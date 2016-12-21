@@ -1,0 +1,17 @@
+language: elixir
+elixir:
+- 1.2
+otp_release:
+- 18.2
+sudo: false
+addons:
+  postgresql: '9.4'
+before_script:
+- psql -c 'create database peepchat_test;' -U postgres
+deploy:
+  provider: heroku
+  api_key:
+    secure: iBGLgMLku7Lmo299wVqmUPAgcnZ83klPp7Jr0JosaUNWzuhUffQ+Ak8+imYmBmnogrwDa9buW32c1XbbOo0KJqXpAnnm0IE+TdCwZLwOOvAyeS4BMHPl7B7nbeH/tqvTe9XJTg9qvjZj2UbeshSA4u31zhWLn+kqsHKUQaOo9uiMeylhFMW6ppj6MwitCH20i/9kzw4U9zHaKzsLzmIQC8W86VbWttwOenVPVSMQwfXh+ohuOVUhCyTMj9+5AK3W0SJGMUjQUYaoOP9Xub8+jo4uqx1U+4gEIHD/A60GREWYxp+NYsZGzJ/ya5la8IQjHiRqLtQzO/uw8WQtX97JPxuX1BTlQPCdwNW7bWH6tPes1Q1CGUznurSFslGkYhzvS0GifQiU3M1z4H9GLdex/e2EzBjZleySKpuzG/an/FMqK3EzGhTyD8TEGpN+6Wmna5BAdrs+gCnL9YHmKFRAH3ZFfAGs+2zfymlFfr0OA9dN0Hmr0ecLuIpfJWla0j94V+3qfnpZdAlkrQnSvoXbi+j0futHX2j7h9DLCgKCz/VunXaFxXz2/UPFgvMzuFPaUtIOjeIlPL23qb8RG4Qkp6zDtsr5xqaN9lybShBVmIGvvwUqEDRlbPfDG1vkxNXESZZPphJGKkF9PTkBedYkS0ijaVkdBuEkhmH6TgNtIF8=
+  app: murmuring-eyrie-35098
+  on:
+    repo: koriroys/school-canteen-api
