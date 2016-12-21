@@ -39,7 +39,8 @@ defmodule SchoolCanteen.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       # additional deps
-      {:cors_plug, "~> 1.1"}
+      {:cors_plug, "~> 1.1"},
+      {:guardian, "~> 0.13.0"}
     ]
   end
 

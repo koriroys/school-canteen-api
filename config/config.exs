@@ -32,3 +32,13 @@ config :phoenix, :format_encoders,
 config :mime, :types, %{
   "application/vnd.api+json" => ["json-api"]
 }
+
+# Guardian setup
+config :guardian, Guardian,
+  allowed_algos: ["HS512"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: "SchoolCanteen",
+  ttl: { 30, :days },
+  verify_issuer: true, # optional
+  secret_key: System.get_env("GUARDIAN_SECRET") || "gDJAXiDFaFKDPrxOXOIlHTmAXmlBlsQNko0naJlCyNSQ6AslIaOapfVu1wytMsCy",
+  serializer: SchoolCanteen.GuardianSerializer
