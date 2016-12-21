@@ -8,6 +8,8 @@ defmodule SchoolCanteen.Router do
   scope "/api", SchoolCanteen do
     pipe_through :api
 
+    post "/register", RegistrationController, :create
+
     resources "/session", SessionController, only: [:index]
   end
 end
