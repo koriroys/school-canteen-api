@@ -41,7 +41,8 @@ defmodule SchoolCanteen.Mixfile do
       # additional deps
       {:comeonin, "~> 3.0"},
       {:cors_plug, "~> 1.1"},
-      {:guardian, "~> 0.13.0"}
+      {:guardian, "~> 0.13.0"},
+      {:ja_serializer, "~> 0.11"}
     ]
   end
 

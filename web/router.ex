@@ -10,6 +10,6 @@ defmodule SchoolCanteen.Router do
 
     post "/register", RegistrationController, :create
 
-    resources "/session", SessionController, only: [:index]
+    post "/token", SessionController, :create, as: :login
   end
 end
