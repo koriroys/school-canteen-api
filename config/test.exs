@@ -12,8 +12,6 @@ config :logger, level: :warn
 # Configure your database
 config :school_canteen, SchoolCanteen.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
   database: "school_canteen_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
