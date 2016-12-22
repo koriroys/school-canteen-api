@@ -11,11 +11,13 @@ defmodule SchoolCanteen.ErrorViewTest do
 
   test "render 500.json" do
     assert render(SchoolCanteen.ErrorView, "500.json", []) ==
-           %{errors: %{detail: "Internal server error"}}
+           %{"errors" => [%{code: 500, title: "Internal Server Error"}],
+             "jsonapi" => %{"version" => "1.0"}}
   end
 
   test "render any other" do
     assert render(SchoolCanteen.ErrorView, "505.json", []) ==
-           %{errors: %{detail: "Internal server error"}}
+           %{"errors" => [%{code: 500, title: "Internal Server Error"}],
+             "jsonapi" => %{"version" => "1.0"}}
   end
 end
