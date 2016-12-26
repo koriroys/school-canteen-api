@@ -13,7 +13,7 @@ config :school_canteen,
 config :school_canteen, SchoolCanteen.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "3x147pG44VoTswgOm94iCcDpVefCI7vsmiUAF5uJGV0OE0lBgquPwpZ9CNYoDrrf",
-  render_errors: [view: SchoolCanteen.ErrorView, accepts: ~w(json)],
+  render_errors: [view: SchoolCanteen.ErrorView, accepts: ~w(html json json-api)],
   pubsub: [name: SchoolCanteen.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

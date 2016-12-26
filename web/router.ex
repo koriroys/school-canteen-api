@@ -1,6 +1,15 @@
 defmodule SchoolCanteen.Router do
   use SchoolCanteen.Web, :router
 
+
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   # Unauthenticated Requests
   pipeline :api do
     plug :accepts, ["json", "json-api"]
@@ -24,5 +33,10 @@ defmodule SchoolCanteen.Router do
   scope "/api", SchoolCanteen do
     pipe_through :api_auth
     get "/user/current", UserController, :current
+  end
+
+  scope "/admin", SchoolCanteen do
+    pipe_through :browser
+    get "/", Admin.DashboardController, :index
   end
 end
