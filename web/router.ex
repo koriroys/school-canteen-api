@@ -19,10 +19,12 @@ defmodule SchoolCanteen.Router do
     post "/register", RegistrationController, :create
 
     post "/token", SessionController, :create, as: :login
+    post "/admin/token", Admin.SessionController, :create, as: :login_admin
   end
 
   scope "/api", SchoolCanteen do
     pipe_through :api_auth
     get "/user/current", UserController, :current
+    get "/admin_user/current", AdminUserController, :current
   end
 end
