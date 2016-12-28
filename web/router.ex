@@ -27,4 +27,8 @@ defmodule SchoolCanteen.Router do
     get "/user/current", UserController, :current
     get "/admin_user/current", AdminUserController, :current
   end
+
+  scope "/api/admin", SchoolCanteen.Admin do
+    resources "/months", MonthController, except: [:new, :edit]
+  end
 end
