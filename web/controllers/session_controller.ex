@@ -3,7 +3,7 @@ defmodule SchoolCanteen.SessionController do
 
   import Ecto.Query, only: [where: 2]
   import Comeonin.Bcrypt
-  import Logger
+  require Logger
 
   alias SchoolCanteen.User
 
@@ -42,7 +42,7 @@ defmodule SchoolCanteen.SessionController do
 
   end
 
-  def create(conn, %{"grant_type" => _}) do
+  def create(_, %{"grant_type" => _}) do
     ## handle unknow grant type
     throw "Unsupported grant_type"
   end
