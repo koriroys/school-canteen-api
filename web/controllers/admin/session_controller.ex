@@ -12,17 +12,18 @@ defmodule SchoolCanteen.Admin.SessionController do
     "password" => password}) do
 
     try do
-      user = AdminUser
+      admin = AdminUser
       |> where(email: ^username)
       |> Repo.one!
       cond do
 
-        checkpw(password, user.password_hash) ->
+        checkpw(password, admin.password_hash) ->
           # Login Success
           Logger.info "Admin " <> username <> " just logged in"
-        {:ok, jwt, _} = Guardian.encode_and_sign(user, :token)
-        conn
-        |> json(%{access_token: jwt}) # return token to client
+          new_conn = Guardian.Plug.api_sign_in(conn, admin)
+          jwt = Guardian.Plug.current_token(new_conn)
+          new_conn
+          |> json(%{access_token: jwt}) # return token to client
 
         true ->
           # Login Failed

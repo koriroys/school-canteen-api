@@ -20,9 +20,11 @@ defmodule SchoolCanteen.SessionController do
         checkpw(password, user.password_hash) ->
           # Login Success
           Logger.info "User " <> username <> " just logged in"
-        {:ok, jwt, _} = Guardian.encode_and_sign(user, :token)
-        conn
-        |> json(%{access_token: jwt}) # return token to client
+          new_conn = Guardian.Plug.api_sign_in(conn, user)
+          jwt = Guardian.Plug.current_token(new_conn)
+
+          new_conn
+          |> json(%{access_token: jwt}) # return token to client
 
         true ->
           # Login Failed

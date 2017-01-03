@@ -12,4 +12,10 @@ defmodule SchoolCanteen.AuthErrorHandler do
     |> put_status(403)
     |> render(SchoolCanteen.ErrorView, "403.json")
   end
+
+  def no_resource(conn, _params) do
+    conn
+    |> put_status(404)
+    |> render(SchoolCanteen.ErrorView, "404.json")
+  end
 end
