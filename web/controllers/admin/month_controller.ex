@@ -1,9 +1,26 @@
 defmodule SchoolCanteen.Admin.MonthController do
   use SchoolCanteen.Web, :controller
+  import Ecto.Query, only: [from: 2]
 
   alias SchoolCanteen.Month
 
-  def index(conn, _params) do
+  # if searching by "start_day"
+  def index(conn, params = %{"start_day" => start_day}) do
+    # change = Ecto.Changeset.cast(%Month{}, params, [:start_day])
+    # example start_day: "Sun Jan 01 2017 00:00:00 GMT+0100 (CET)"
+    {:ok, parsed_start_day} = Timex.parse(start_day, "%a %b %d %Y %H:%M:%S %Z%z (%Z)", :strftime)
+    query = from m in Month,
+            where: m.start_day == ^parsed_start_day
+    case Repo.one(query) do
+      month ->
+        render(conn, "show.json", month: month)
+      nil ->
+        render(SchoolCanteen.ErrorView, "404.json")
+    end
+  end
+
+  def index(conn, params) do
+
     months = Repo.all(Month)
     render(conn, "index.json", months: months)
   end

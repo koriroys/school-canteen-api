@@ -2,7 +2,7 @@ defmodule SchoolCanteen.Month do
   use SchoolCanteen.Web, :model
 
   schema "months" do
-    field :start_day, Ecto.Date
+    field :start_day, Timex.Ecto.Date
 
     timestamps()
   end
@@ -14,5 +14,6 @@ defmodule SchoolCanteen.Month do
     struct
     |> cast(params, [:start_day])
     |> validate_required([:start_day])
+    |> unique_constraint([:start_day])
   end
 end

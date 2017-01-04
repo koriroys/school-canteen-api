@@ -10,7 +10,12 @@ defmodule SchoolCanteen.Admin.MonthView do
   end
 
   def render("month.json", %{month: month}) do
-    %{id: month.id,
-      start_day: month.start_day}
+    %{
+      type: "month",
+      id: month.id,
+      attributes: %{
+        "start-day": month.start_day
+      }
+    }
   end
 end

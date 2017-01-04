@@ -43,7 +43,8 @@ defmodule SchoolCanteen.Mixfile do
       {:cors_plug, "~> 1.1"},
       {:guardian, "~> 0.14.0"},
       {:ja_serializer, "~> 0.11"},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:timex_ecto, "~> 3.1.0"}
     ]
   end
 
