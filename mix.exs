@@ -19,7 +19,7 @@ defmodule SchoolCanteen.Mixfile do
   def application do
     [mod: {SchoolCanteen, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :timex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -41,8 +41,10 @@ defmodule SchoolCanteen.Mixfile do
       # additional deps
       {:comeonin, "~> 3.0"},
       {:cors_plug, "~> 1.1"},
-      {:guardian, "~> 0.13.0"},
-      {:ja_serializer, "~> 0.11"}
+      {:guardian, "~> 0.14.0"},
+      {:ja_serializer, "~> 0.11"},
+      {:timex, "~> 3.0"},
+      {:timex_ecto, "~> 3.1.0"}
     ]
   end
 

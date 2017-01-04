@@ -2,8 +2,8 @@ defmodule SchoolCanteen.GuardianSerializer do
   @behaviour Guardian.Serializer
 
   alias SchoolCanteen.Repo
-  alias SchoolCanteen.User
   alias SchoolCanteen.AdminUser
+  alias SchoolCanteen.User
 
   def for_token(user = %User{}), do: { :ok, "User:#{user.id}" }
   def for_token(admin = %AdminUser{}), do: { :ok, "AdminUser:#{admin.id}" }

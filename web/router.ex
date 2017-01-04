@@ -1,5 +1,6 @@
 defmodule SchoolCanteen.Router do
   use SchoolCanteen.Web, :router
+  import SchoolCanteen.Plugs.Authorize
 
   # Unauthenticated Requests
   pipeline :api do
@@ -7,10 +8,20 @@ defmodule SchoolCanteen.Router do
   end
 
   # Authenticated Requests
-  pipeline :api_auth do
+  pipeline :api_user do
     plug :accepts, ["json", "json-api"]
     plug Guardian.Plug.VerifyHeader, realm: "Bearer"
-    plug Guardian.Plug.LoadResource
+    plug Guardian.Plug.LoadResource, serializer: SchoolCanteen.Serializers.GuardianUserSerializer
+    plug Guardian.Plug.EnsureResource, handler: SchoolCanteen.AuthErrorHandler
+    plug SchoolCanteen.Plugs.Authorize, %{ key: :user, user_type: %SchoolCanteen.User{} }
+  end
+
+  pipeline :api_admin do
+    plug :accepts, ["json", "json-api"]
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    plug Guardian.Plug.LoadResource, serializer: SchoolCanteen.Serializers.GuardianAdminSerializer
+    plug Guardian.Plug.EnsureResource, handler: SchoolCanteen.AuthErrorHandler
+    plug SchoolCanteen.Plugs.Authorize, %{ key: :admin_user, user_type: %SchoolCanteen.AdminUser{} }
   end
 
   scope "/api", SchoolCanteen do
@@ -23,8 +34,16 @@ defmodule SchoolCanteen.Router do
   end
 
   scope "/api", SchoolCanteen do
-    pipe_through :api_auth
+    pipe_through :api_user
     get "/user/current", UserController, :current
+  end
+
+  scope "/api", SchoolCanteen do
+    pipe_through :api_admin
     get "/admin_user/current", AdminUserController, :current
+  end
+
+  scope "/api/admin", SchoolCanteen.Admin do
+    resources "/months", MonthController, except: [:new, :edit]
   end
 end
